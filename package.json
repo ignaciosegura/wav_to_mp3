@@ -1,0 +1,33 @@
+{
+  "name": "wav2mp3",
+  "version": "1.0.0",
+  "description": "This Node.JS script will watch an \"input\" folder for WAV files, it will encode them to MP3 and save them to an \"output\" folder.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wav2mp3": "node --inspect-brk index.js",
+    "watch-wav2mp3": "node --inspect-brk index.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ignaciosegura/wav_to_mp3.git"
+  },
+  "keywords": [
+    "wav",
+    "mp3",
+    "converter",
+    "encoder",
+    "lame"
+  ],
+  "author": "Ignacio Segura (nacho@isegura.es)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ignaciosegura/wav_to_mp3/issues"
+  },
+  "homepage": "https://github.com/ignaciosegura/wav_to_mp3#readme",
+  "dependencies": {
+    "chokidar": "^2.0.4",
+    "node-lame": "^1.2.0"
+  },
+  "devDependencies": {}
+}

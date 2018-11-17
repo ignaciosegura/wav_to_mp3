@@ -1,8 +1,7 @@
 // Node objects
 let path = require('path');
-let fs = require('fs');
 
-const Lame = require("node-lame").Lame;
+console.log(process.argv);
 
 class wav2mp3 {
   constructor() {
@@ -11,25 +10,24 @@ class wav2mp3 {
       outputFolder: './output',
       bitrate: 192
     }
-    let files = this.getInputDirectoryContents(this.config.inputFolder);
-    console.log(files);
-
-    for (let file of files) {
-      if (!this.fileIsWAV(file))
-        continue;
-
-      this.encodeFile(file);
-    }
+    this.watchFolder(this.checkIsWatch());
   }
 
-  getInputDirectoryContents(inputPath) {
-    return fs.readdirSync(inputPath);
+  checkIsWatch() {
+    return (process.argv[2] === '--watch')
+      ? true
+      : false;
+  }
+
+  encodeIfNeeded(file) {
+    if (!this.fileIsWAV(file))
+      return;
+
+    this.encodeFile(file);
   }
 
   fileIsWAV(filename) {
-
     let extension = path.extname(filename);
-
     return (extension.toLowerCase() === '.wav')
       ? true
       : false;
@@ -40,7 +38,7 @@ class wav2mp3 {
     const encoder = new Lame({
       output: this.config.outputFolder + '/' + path.parse(file).name + '.mp3',
       bitrate: this.config.bitrate,
-    }).setFile(this.config.inputFolder + '/' + file);
+    }).setFile('./' + file);
 
     encoder
       .encode()
@@ -52,6 +50,28 @@ class wav2mp3 {
       });
   }
 
+  watchFolder(isWatch) {
+    let chokidar = require('chokidar');
+    let options = {
+      ignored: /^\./,
+      persistent: isWatch,
+      interval: 2000
+    };
+    let that = this;
+
+    let watcher = chokidar.watch(this.config.inputFolder, options);
+
+    watcher
+      .on('add', function (path) {
+        that.encodeIfNeeded(path)
+      })
+      .on('change', function (path) {
+        that.encodeIfNeeded(path)
+      })
+      .on('unlink', function (path) { console.log('File', path, 'has been removed'); })
+      .on('error', function (error) { console.error('Error happened', error); })
+  }
 }
 
-console.log(new wav2mp3());
+
+new wav2mp3();
