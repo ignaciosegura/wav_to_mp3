@@ -61,8 +61,8 @@ typings/
 .next
 
 # Processed files
-input/**
-output/**
+input/*.wav
+output/*.mp3
 
 # Package Lock
 package-lock.json
