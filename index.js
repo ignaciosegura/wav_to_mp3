@@ -1,8 +1,6 @@
 // Node objects
 let path = require('path');
 
-console.log(process.argv);
-
 class wav2mp3 {
   constructor() {
     this.config = {
