@@ -53,7 +53,8 @@ class wav2mp3 {
     let options = {
       ignored: /^\./,
       persistent: isWatch,
-      interval: 2000
+      interval: 2000,
+      cwd: '.'
     };
     let that = this;
 
@@ -66,10 +67,13 @@ class wav2mp3 {
       .on('change', function (path) {
         that.encodeIfNeeded(path)
       })
-      .on('unlink', function (path) { console.log('File', path, 'has been removed'); })
-      .on('error', function (error) { console.error('Error happened', error); })
+      .on('unlink', function (path) {
+        console.log('File', path, 'has been removed');
+      })
+      .on('error', function (error) {
+        console.error('Error happened', error);
+      });
   }
 }
-
 
 new wav2mp3();

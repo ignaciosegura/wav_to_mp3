@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "wav2mp3": "node --inspect-brk index.js",
-    "watch-wav2mp3": "node --inspect-brk index.js --watch"
+    "encode": "node index.js",
+    "watch": "node index.js --watch",
+    "debug": "node --inspect-brk index.js --watch"
   },
   "repository": {
     "type": "git",
