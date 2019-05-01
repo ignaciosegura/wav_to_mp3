@@ -7,7 +7,15 @@ Requires install of LAME encoder. You can find installation instructions here:
 
 https://www.npmjs.com/package/node-lame
 
+# Installation
+
+This tool requires Node.JS and Node NPM to be installed.
+
+Once you install it, you need to go to the folder where you installed this script and run `npm install`.
+
 # Usage
+
+Once you have installed this script, you can:
 
 `npm run wav2mp3` -> Processes input folder
 
